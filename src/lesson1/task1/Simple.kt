@@ -74,8 +74,8 @@ fun main() {
     var v:Int = readln().toInt()
     print("Длинна м: "+lengthInMeters(s,a,v))
     */
-    /** Задача 3
-    print(angleInRadian(0,0,206265))
+    /**Задача 3
+    print(angleInRadian(0,12,0))
     */
     /** Задача 4
     print(trackLength(3.0,0.0,0.0,4.0))
@@ -88,13 +88,13 @@ fun main() {
     /** Задача 6
     print("Время в пути: "+travelMinutes(9,25,13,1))
     */
-    /** Задача 7
+
     print("Введите сумму вклада: ")
     var init:Int = readln().toInt()
     print("Введите процентную ставку: ")
     var perc:Int = readln().toInt()
     print(accountInThreeYears(init,perc))
-    */
+
     /** Задача 8
     print("Введите число: ")
     var num:Int = readln().toInt()
@@ -136,7 +136,7 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(deg: Int, min: Int, sec: Int): Double {
-    return (deg * 60 * 60 + min * 60 + sec) / 206265.0
+    return ((deg + min / 60.0 + sec / 60.0 / 60.0) * PI / 180)
 }
 
 /**
@@ -178,7 +178,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-    return((initial*(1+percent/100.0).pow(3.0))*100).roundToInt()/100.0
+    return((initial*(1+percent/100.0).pow(3.0))*1000000).roundToInt()/1000000.0
 }
 
 /**
