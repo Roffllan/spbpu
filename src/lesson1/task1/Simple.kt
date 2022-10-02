@@ -88,18 +88,19 @@ fun main() {
     /** Задача 6
     print("Время в пути: "+travelMinutes(9,25,13,1))
     */
-
+    /**
     print("Введите сумму вклада: ")
     var init:Int = readln().toInt()
     print("Введите процентную ставку: ")
     var perc:Int = readln().toInt()
     print(accountInThreeYears(init,perc))
+    */
 
-    /** Задача 8
+
     print("Введите число: ")
     var num:Int = readln().toInt()
     print(numberRevert(num))
-    */
+
 
 
 
@@ -136,7 +137,7 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(deg: Int, min: Int, sec: Int): Double {
-    return ((deg + min / 60.0 + sec / 60.0 / 60.0) * PI / 180)
+    return ((deg + min / 60.0 + sec / 60.0 / 60.0) / 180 * PI )
 }
 
 /**
