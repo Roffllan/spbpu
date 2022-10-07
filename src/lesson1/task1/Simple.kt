@@ -97,9 +97,10 @@ fun main() {
     */
 
 
-    print("Введите число: ")
+    /**print("Введите число: ")
     var num:Int = readln().toInt()
     print(numberRevert(num))
+    */
 
 
 

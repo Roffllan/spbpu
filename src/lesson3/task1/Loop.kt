@@ -64,6 +64,13 @@ fun digitCountInNumber(n: Int, m: Int): Int =
         else -> digitCountInNumber(n / 10, m) + digitCountInNumber(n % 10, m)
     }
 
+fun main(){
+    /**
+    print(digitNumber(1234545454))
+     */
+
+
+}
 /**
  * Простая (2 балла)
  *
@@ -72,7 +79,15 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var kol = 0
+    var num = n
+    while (num != 0) {
+        kol++
+        num /= 10
+    }
+    return kol
+}
 
 /**
  * Простая (2 балла)
