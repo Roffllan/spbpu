@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("Stepan")
 
 package lesson2.task2
 
@@ -61,8 +61,8 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    var dangeVert = x1 == x2 || y1 == y2
-    var dangeDiag = abs(x1 - x2) == abs(y1 - y2)
+    val dangeVert = x1 == x2 || y1 == y2
+    val dangeDiag = abs(x1 - x2) == abs(y1 - y2)
     return dangeVert || dangeDiag
 }
 
