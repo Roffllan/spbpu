@@ -2,7 +2,10 @@
 
 package lesson3.task1
 
-import kotlin.math.sqrt
+import ru.spbstu.wheels.NullableMonad.map
+import java.lang.Math.pow
+import kotlin.math.*
+
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -65,9 +68,27 @@ fun digitCountInNumber(n: Int, m: Int): Int =
     }
 
 fun main(){
+
+    //print(digitNumber(1))
+
     /**
-    print(digitNumber(1234545454))
+     print(revert(1234567))
      */
+    /** (print (isPalindrome(23432)) */
+    /**print(fib(1))*/
+    /**print(minDivisor(21))*/
+    /**print(maxDivisor(1231))*/
+    /**print(collatzSteps(15))*/
+    /**print(lcm(3, 7))*/
+    /**print(isCoPrime(17, 13))*/
+    /**print(hasDifferentDigits(555))*/
+    print(squareSequenceDigit(17))
+    //assertEquals(1, squareSequenceDigit(1))
+    //        assertEquals(4, squareSequenceDigit(2))
+    //        assertEquals(5, squareSequenceDigit(7))
+    //        assertEquals(6, squareSequenceDigit(12))
+    //        assertEquals(0, squareSequenceDigit(17))
+    //        assertEquals(9, squareSequenceDigit(27))
 
 
 }
@@ -95,21 +116,37 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
-
+fun fib(n: Int): Int {
+    var a:Int = 1
+    var b:Int = 1
+    for (el in 3..n){
+        if (el % 2 == 0) a +=b
+        else b += a
+    }
+    return if (a > b) a else b
+}
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var count:Int = 1
+    while (!(n % ++count == 0));
+    return count
+
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var count:Int = 1
+    while (!(n % ++count == 0));
+    return n / count
+}
 
 /**
  * Простая (2 балла)
@@ -127,7 +164,17 @@ fun maxDivisor(n: Int): Int = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var count:Int = 0
+    var step:Int = x
+    while(step != 1){
+        if (step % 2 == 0) step = step / 2
+        else step = 3 * step + 1
+        ++count
+    }
+    return count
+
+}
 
 /**
  * Средняя (3 балла)
@@ -135,7 +182,11 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var count:Int = 1
+    while (m >= ++count && n >= ++count) if (m % count == 0 && n % count == 0) return count
+    return 1
+}
 
 /**
  * Средняя (3 балла)
@@ -144,7 +195,9 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    return if (lcm(m, n) == 1) true else false
+}
 
 /**
  * Средняя (3 балла)
@@ -153,7 +206,17 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var num:Int = 0
+    var del = n
+    while (true){
+        num += del % 10
+        del /= 10
+        if (del == 0) return num
+        num *= 10
+    }
+    return num
+}
 
 /**
  * Средняя (3 балла)
@@ -164,7 +227,10 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    /** 3223 */
+    return (if(n == revert(n)) true else false )
+}
 
 /**
  * Средняя (3 балла)
@@ -174,7 +240,12 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var num:Int = n
+    var digit:Int = n % 10
+    while (num > 0) if (num % 10 == digit) num /= 10 else return false
+    return true
+}
 
 /**
  * Средняя (4 балла)
@@ -207,7 +278,36 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    /**digitNumber кол-во цифр в числе*/
+    var count:Int = 0
+    var num:Int = 1
+    var i = 1
+    while (n > count){ //пока счётчик меньше чем необходимое число
+        count += digitNumber(i*i) //собираем кол-во цифр
+        var j:Int = 0 //счётчик для внутреннего массивa
+        while (digitNumber(i*i)>=++j) { //пока счётчик меньше кол-ва цифр в квадрате
+            num *= 10 //добавляем кол-во нулей для новых квадратов
+            //print("$count $num \n")
+        }
+        num += i*i //добавляем новый квадрат в переменную
+        j = 0
+        var num1 = 0
+        while (digitNumber(i*i)>++j) { //пока счётчик меньше кол-ва цифр в квадрате
+            num1 = (num.toDouble()/10).toInt()//добавляем кол-во нулей для новых квадратов
+            //print("$count $num \n")
+        }
+        num = num - num * (Math.pow(10.0, digitNumber(i*i).toDouble())).toInt()
+
+        print("count=$count num=$num i=$i  \n")
+        ++i//инкремент числа, которе возводим в квадрат
+    }
+    print("\n\n$count $num \n")
+    num = revert(num) //разворачиваем порядок чисел
+    while (digitNumber(num) > n)num /= 10 // отнимаем кол-во цифр до указанного значения
+    return num
+
+}
 
 /**
  * Сложная (5 баллов)
