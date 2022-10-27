@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("Stepan")
 
 package lesson1.task1
 
