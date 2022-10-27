@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson3.task1.minDivisor
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -119,6 +120,10 @@ fun main(){
     //print(times(listOf(), listOf()))
     //print(polynom(listOf(1, 2, 3),5))
     //print(abs(listOf(3.0, 4.0)))
+    //print(accumulate(mutableListOf(1,2,3,4)))
+    //print(factorize(75))
+    //print(factorizeToString(75))
+    print(convert(100, 4))
 }
 
 /**
@@ -202,7 +207,11 @@ fun polynom(p: List<Int>, x: Int): Int {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int>{
+    var count:Int = 0
+    while (++count < list.size) list[count]+=list[count-1]
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -211,7 +220,19 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    val sp = mutableListOf<Int>()
+    var num:Int = n
+    var count:Int = 1
+    while (num >= ++count) {
+        if (num % count == 0){
+            num = num / count
+            sp.add(count)
+            count = 1
+        }
+    }
+    return sp
+}
 
 /**
  * Сложная (4 балла)
@@ -220,7 +241,9 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    return factorize(n).joinToString("*")
+}
 
 /**
  * Средняя (3 балла)
@@ -229,7 +252,15 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    var digit:Int = n
+    val sp = mutableListOf<Int>()
+    while (digit > 0){
+        sp.add(0,digit % base)
+        digit = digit / base
+    }
+    return sp
+}
 
 /**
  * Сложная (4 балла)
@@ -242,7 +273,21 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    val letters:String = "abcdefghijklmnopqrstuvwxyzABC"
+    var res = ""
+    var dig:Int = n
+    if (1 > base ||  base > 37) return "-1"
+
+    while (dig > 0) {
+        if (dig % base > 9) res += letters[dig % base - 10]
+        else res += dig % base
+        dig /= base
+    }
+
+    return res.reversed()
+
+}
 
 /**
  * Средняя (3 балла)
@@ -251,7 +296,13 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int {
+    var digits1: List<Int> = digits.reversed()
+    var count:Int = -1
+    var res:Int = 0
+    while (++count < digits1.size) res += digits1[count] * Math.pow(base.toDouble(),count.toDouble()).toInt()
+    return res
+}
 
 /**
  * Сложная (4 балла)
