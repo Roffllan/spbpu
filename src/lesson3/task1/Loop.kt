@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("Stepan Nikitin")
 
 package lesson3.task1
 
@@ -82,7 +82,7 @@ fun main(){
     /**print(lcm(3, 7))*/
     /**print(isCoPrime(17, 13))*/
     /**print(hasDifferentDigits(555))*/
-    print(squareSequenceDigit(17))
+    //print(squareSequenceDigit(17))
     //assertEquals(1, squareSequenceDigit(1))
     //        assertEquals(4, squareSequenceDigit(2))
     //        assertEquals(5, squareSequenceDigit(7))
@@ -107,7 +107,10 @@ fun digitNumber(n: Int): Int {
         kol++
         num /= 10
     }
-    return kol
+    return (
+            if (kol == 0) 1
+            else kol
+            )
 }
 
 /**
@@ -184,8 +187,9 @@ fun collatzSteps(x: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     var count:Int = 1
-    while (m >= ++count && n >= ++count) if (m % count == 0 && n % count == 0) return count
-    return 1
+    var On:Int = m*n
+    while (On >= ++count) if (count % m == 0 && count % n == 0) return count
+    return -1
 }
 
 /**
@@ -196,7 +200,10 @@ fun lcm(m: Int, n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    return if (lcm(m, n) == 1) true else false
+    var count:Int = 1
+    var On:Int = m*n
+    while (On >= ++count) if (m % count == 0 && n % count == 0) return false
+    return true
 }
 
 /**
@@ -215,7 +222,7 @@ fun revert(n: Int): Int {
         if (del == 0) return num
         num *= 10
     }
-    return num
+
 }
 
 /**
@@ -243,8 +250,8 @@ fun isPalindrome(n: Int): Boolean {
 fun hasDifferentDigits(n: Int): Boolean {
     var num:Int = n
     var digit:Int = n % 10
-    while (num > 0) if (num % 10 == digit) num /= 10 else return false
-    return true
+    while (num > 0) if (num % 10 == digit) num /= 10 else return true
+    return false
 }
 
 /**
@@ -281,32 +288,14 @@ fun cos(x: Double, eps: Double): Double = TODO()
 fun squareSequenceDigit(n: Int): Int {
     /**digitNumber кол-во цифр в числе*/
     var count:Int = 0
-    var num:Int = 1
-    var i = 1
-    while (n > count){ //пока счётчик меньше чем необходимое число
-        count += digitNumber(i*i) //собираем кол-во цифр
-        var j:Int = 0 //счётчик для внутреннего массивa
-        while (digitNumber(i*i)>=++j) { //пока счётчик меньше кол-ва цифр в квадрате
-            num *= 10 //добавляем кол-во нулей для новых квадратов
-            //print("$count $num \n")
-        }
-        num += i*i //добавляем новый квадрат в переменную
-        j = 0
-        var num1 = 0
-        while (digitNumber(i*i)>++j) { //пока счётчик меньше кол-ва цифр в квадрате
-            num1 = (num.toDouble()/10).toInt()//добавляем кол-во нулей для новых квадратов
-            //print("$count $num \n")
-        }
-        num = num - num * (Math.pow(10.0, digitNumber(i*i).toDouble())).toInt()
-
-        print("count=$count num=$num i=$i  \n")
-        ++i//инкремент числа, которе возводим в квадрат
+    var num:Int = 0
+    var res:Int = 0
+    while (n > count){
+        res = ++num*num
+        count += digitNumber(num*num)
     }
-    print("\n\n$count $num \n")
-    num = revert(num) //разворачиваем порядок чисел
-    while (digitNumber(num) > n)num /= 10 // отнимаем кол-во цифр до указанного значения
-    return num
-
+    res /= Math.pow(10.0, (count-n).toDouble()).toInt()
+    return res % 10
 }
 
 /**

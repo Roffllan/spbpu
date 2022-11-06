@@ -86,7 +86,7 @@ fun main(){
     /**
     print(triangleKind(6.0,6.0,3.0))
     */
-
+    print(ageDescription(111))
 
 
 }
@@ -101,12 +101,12 @@ fun ageDescription(age: Int): String {
     /** 0, 5-20 - лет
     1 - год
     2 - 4 - года */
-    if (!(age in 1..199)) return "Введите корректный возраст"
-    else if (age % 10 == 0 || age % 10 in 5..20) return "$age лет"
-    else if (age % 10 == 1 || age == 1) return "$age год"
-    else if (age % 10 in 2..4) return "$age года"
-    return "Введите корректный возраст"
-
+    var a:Int = age
+    if (!(a in 1..199)) return "Введите корректный возраст";
+    if (a > 100) a %= 100
+    if (a % 10 == 0 || a in (5..20) || a % 10 in (5..9)) return "$age лет";
+    if (a % 10 == 1) return "$age год";
+    return "$age года";
 
 }
 
@@ -121,14 +121,7 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double {
-    var halfS:Double = ((t1 * v1 + t2 * v2 + t3 * v3) / 2)
-    return when {
-        halfS <= (v1 * t1) -> halfS / v1
-        halfS >= (v1 * t1 + v2 * t2) -> t1 + t2 + (halfS - (t1 * v1) - (t2 * v2)) / 3
-        else -> + (halfS - (t1 * v1)) / 2
-    }
-}
+): Double = TODO()
 
 /**
  * Простая (2 балла)
