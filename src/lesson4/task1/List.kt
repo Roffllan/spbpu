@@ -4,6 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson3.task1.minDivisor
+import java.lang.Math.pow
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -316,7 +317,13 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int): Int = TODO()
+fun decimalFromString(str: String, base: Int): Int {
+    var summ:Int = 0
+    var count:Int = str.length
+    val letters:String = "0123456789abcdefghijklmnopqrstuvwxyzABC"
+    for (x in str) summ += letters.indexOf(x) * pow(base*1.0,--count*1.0).toInt()
+    return summ
+}
 
 /**
  * Сложная (5 баллов)

@@ -121,7 +121,14 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val halfS = (t1 * v1 + t2 * v2 + t3 * v3)/2
+    return when {
+        halfS <= t1 * v1 -> halfS / v1
+        halfS <= t1 * v1 + t2 * v2 -> (halfS - t1 * v1) / v2 + t1
+        else -> (halfS - t1 * v1 - t2 * v2) / v3 + t1 + t2
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -181,12 +188,15 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
+    var akv:Int = (a*a).toInt()
+    var bkv:Int = (b*b).toInt()
+    var ckv:Int = (c*c).toInt()
     return (
         if ((a + b < c) || (b + c < a) || (a + c < b)) -1
-        else if ((a.pow(2) == b.pow(2) + c.pow(2)) || (b.pow(2) == a.pow(2) + c.pow(2)) || (c.pow(2) == a.pow(2) + b.pow(2))) 1
-        else if ((a.pow(2) > b.pow(2) + c.pow(2)) || (b.pow(2) > a.pow(2) + c.pow(2)) || (c.pow(2) > a.pow(2) + b.pow(2))) 2
+        else if ((akv == bkv + ckv) || (bkv == akv + ckv) || (ckv == akv + bkv)) 1
+        else if ((akv > bkv + ckv) || (bkv > akv + ckv) || (ckv > akv + bkv)) 2
         else 0
-    )
+            )
 }
 
 
