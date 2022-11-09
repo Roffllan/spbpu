@@ -188,15 +188,15 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    var akv:Int = (a*a).toInt()
-    var bkv:Int = (b*b).toInt()
-    var ckv:Int = (c*c).toInt()
-    return (
-        if ((a + b < c) || (b + c < a) || (a + c < b)) -1
-        else if ((akv == bkv + ckv) || (bkv == akv + ckv) || (ckv == akv + bkv)) 1
-        else if ((akv > bkv + ckv) || (bkv > akv + ckv) || (ckv > akv + bkv)) 2
-        else 0
-            )
+    var akv:Double = a.pow(2.0)
+    var bkv:Double = b.pow(2.0)
+    var ckv:Double = c.pow(2.0)
+    return when {
+        ((a + b < c) || (b + c < a) || (a + c < b)) -> -1
+        ((akv == bkv + ckv) || (bkv == akv + ckv) || (ckv == akv + bkv)) -> 1
+        ((akv > bkv + ckv) || (bkv > akv + ckv) || (ckv > akv + bkv)) -> 2
+        else -> 0
+    }
 }
 
 
