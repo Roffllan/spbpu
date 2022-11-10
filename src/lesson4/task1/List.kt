@@ -124,7 +124,8 @@ fun main(){
     //print(accumulate(mutableListOf(1,2,3,4)))
     //print(factorize(75))
     //print(factorizeToString(75))
-    print(convert(100, 4))
+    //print(convert(100, 4))
+    print(russian(103000))
 }
 
 /**
@@ -333,7 +334,22 @@ fun decimalFromString(str: String, base: Int): Int {
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val count_str:List<String> = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
+    val decards_str:List<String> = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC", "C")
+    val hund_str:List<String> = listOf("", "С", "СС", "ССС", "СD", "D", "DC", "DCC", "DCCC", "CM", "M")
+    val thou_str:List<String> = listOf("", "M", "MM", "MMM")
+    var res:String = ""
+    var digit:String = n.toString()
+    while (digit.length != 0){
+        if (digit.length == 4) res += thou_str[digit[0].digitToInt()]
+        if (digit.length == 3) res += hund_str[digit[0].digitToInt()];
+        if (digit.length == 2) res += decards_str[digit[0].digitToInt()];
+        if (digit.length == 1) res += count_str[digit[0].digitToInt()];
+        digit = digit.substring(1)
+    }
+    return res
+}
 
 /**
  * Очень сложная (7 баллов)
@@ -342,4 +358,36 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val dig1:List<String> = listOf("", " один", " два", " три", " четыре", " пять", " шесть", " семь", " восемь", " девять")
+    val dig2:List<String> = listOf("", " одиннадцать", " двенадцать", " тринадцать", " четырнадцать", " пятнадцать", " шестнадцать", " семнадцать", " восемнадцать", " девятнадцать")
+    val dig3:List<String> = listOf(""," десять", " двадцать", " тридцать", " сорок", " пятьдесят", " шестьдесят", " семьдесят", " восемьдесят", " девяносто")
+    val dig4:List<String> = listOf("", " сто", " двести", " триста", " четыреста", " пятьсот", " шестьсот", " семьсот", " восемьсот", " девятьсот")
+    val dig5:List<String> = listOf(" тысяч", " тысяча", " тысячи")
+    val dig6:List<String> = listOf("", " одна", " две")
+    var res:String = ""
+    var digit:String = n.toString()
+    while (digit.length != 0){
+        if (digit.length == 1 || digit.length == 4) {
+            if (digit.length == 4 && digit[0].digitToInt() in 1..2){
+                if (digit[0].digitToInt() == 1) res += dig6[1]
+                if (digit[0].digitToInt() == 2) res += dig6[2]
+            }
+            else res += dig1[digit[0].digitToInt()]
+            if (digit.length == 4)
+                if (digit[0].digitToInt() == 1) res += dig5[1]
+                else if (digit[0].digitToInt() in 2..4) res += dig5[2]
+                else res += dig5[0]
+        }
+        if (digit.length == 2 || digit.length == 5)
+            if (digit[0].digitToInt() == 1) {
+                res += dig2[digit[1].digitToInt()]
+                if (digit.length == 5) res += dig5[0]
+                digit = digit.substring(1)
+            }
+            else res += dig3[digit[0].digitToInt()]
+        if (digit.length == 3 || digit.length == 6) res += dig4[digit[0].digitToInt()]
+        digit = digit.substring(1)
+    }
+    return res.substring(1)
+}
