@@ -257,6 +257,7 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     var digit:Int = n
     val sp = mutableListOf<Int>()
+    if (n == 0) return listOf(0)
     while (digit > 0){
         sp.add(0,digit % base)
         digit = digit / base
@@ -279,6 +280,7 @@ fun convertToString(n: Int, base: Int): String {
     val letters:String = "abcdefghijklmnopqrstuvwxyzABC"
     var res = ""
     var dig:Int = n
+    if (n == 0) return "0"
     if (1 > base ||  base > 37) return "-1"
 
     while (dig > 0) {
@@ -337,7 +339,7 @@ fun decimalFromString(str: String, base: Int): Int {
 fun roman(n: Int): String {
     val count_str:List<String> = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
     val decards_str:List<String> = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC", "C")
-    val hund_str:List<String> = listOf("", "С", "СС", "ССС", "СD", "D", "DC", "DCC", "DCCC", "CM", "M")
+    val hund_str:List<String> = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM", "M")
     val thou_str:List<String> = listOf("", "M", "MM", "MMM")
     var res:String = ""
     var digit:String = n.toString()

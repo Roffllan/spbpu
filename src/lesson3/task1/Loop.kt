@@ -2,8 +2,6 @@
 
 package lesson3.task1
 
-import ru.spbstu.wheels.NullableMonad.map
-import java.lang.Math.pow
 import kotlin.math.*
 
 
@@ -79,8 +77,8 @@ fun main(){
     /**print(minDivisor(21))*/
     /**print(maxDivisor(1231))*/
     /**print(collatzSteps(15))*/
-    /**print(lcm(3, 7))*/
-    /**print(isCoPrime(17, 13))*/
+    print(lcm(1, 1))
+    //print(isCoPrime(66735, 50000 ))
     /**print(hasDifferentDigits(555))*/
     //print(squareSequenceDigit(17))
     //assertEquals(1, squareSequenceDigit(1))
@@ -89,8 +87,6 @@ fun main(){
     //        assertEquals(6, squareSequenceDigit(12))
     //        assertEquals(0, squareSequenceDigit(17))
     //        assertEquals(9, squareSequenceDigit(27))
-
-
 }
 /**
  * Простая (2 балла)
@@ -103,14 +99,8 @@ fun main(){
 fun digitNumber(n: Int): Int {
     var kol = 0
     var num = n
-    while (num != 0) {
-        kol++
-        num /= 10
-    }
-    return (
-            if (kol == 0) 1
-            else kol
-            )
+    while (num != 0) { kol++; num /= 10 }
+    return if (kol == 0) 1 else kol
 }
 
 /**
@@ -134,7 +124,7 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var count:Int = 1
+    var count = 1
     while (!(n % ++count == 0));
     return count
 
@@ -146,7 +136,7 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var count:Int = 1
+    var count = 1
     while (!(n % ++count == 0));
     return n / count
 }
@@ -168,8 +158,8 @@ fun maxDivisor(n: Int): Int {
  * этого для какого-либо начального X > 0.
  */
 fun collatzSteps(x: Int): Int {
-    var count:Int = 0
-    var step:Int = x
+    var count = 0
+    var step = x
     while(step != 1){
         if (step % 2 == 0) step = step / 2
         else step = 3 * step + 1
@@ -187,9 +177,9 @@ fun collatzSteps(x: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     var count:Int = 1
-    var On:Int = m*n
-    while (On >= ++count) if (count % m == 0 && count % n == 0) return count
-    return -1
+    var proizv = m * n
+    while (proizv >= ++count) if (count % m == 0 && count % n == 0) return count
+    return 1
 }
 
 /**
@@ -201,8 +191,8 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var count:Int = 1
-    var On:Int = m*n
-    while (On >= ++count) if (m % count == 0 && n % count == 0) return false
+    var proizv = if (m < n) m; else n
+    while (proizv >= ++count) if (m % count == 0 && n % count == 0) return false
     return true
 }
 
@@ -234,10 +224,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    /** 3223 */
-    return (if(n == revert(n)) true else false )
-}
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя (3 балла)
@@ -250,7 +237,10 @@ fun isPalindrome(n: Int): Boolean {
 fun hasDifferentDigits(n: Int): Boolean {
     var num:Int = n
     var digit:Int = n % 10
-    while (num > 0) if (num % 10 == digit) num /= 10 else return true
+    while (num > 0){
+        if (num % 10 == digit) num /= 10
+        else return true
+    }
     return false
 }
 
