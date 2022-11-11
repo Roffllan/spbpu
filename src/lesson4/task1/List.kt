@@ -125,7 +125,7 @@ fun main(){
     //print(factorize(75))
     //print(factorizeToString(75))
     //print(convert(100, 4))
-    print(russian(103000))
+    print(russian(210441))
 }
 
 /**
@@ -380,7 +380,7 @@ fun russian(n: Int): String {
                 else res += dig5[0]
         }
         if (digit.length == 2 || digit.length == 5)
-            if (digit[0].digitToInt() == 1) {
+            if (digit[0].digitToInt() == 1 && digit[1].digitToInt() > 0) {
                 res += dig2[digit[1].digitToInt()]
                 if (digit.length == 5) res += dig5[0]
                 digit = digit.substring(1)
