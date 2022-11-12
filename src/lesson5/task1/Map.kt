@@ -2,6 +2,7 @@
 
 package lesson5.task1
 
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -96,7 +97,14 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
+fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
+    var rg = mutableMapOf<Int, MutableList<String>>()
+    for ((name, grad) in grades){
+        if (rg[grad].isNullOrEmpty()) rg[grad] = mutableListOf(name)
+        else rg[grad]?.add(name)
+    }
+    return rg
+}
 
 /**
  * Простая (2 балла)
@@ -108,7 +116,11 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean{
+    for ((key) in a) if (a[key] == b[key]) return true
+    return false
+}
+
 
 /**
  * Простая (2 балла)
@@ -124,9 +136,10 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
-fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    TODO()
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>){
+    for ((key) in b) if (b[key] == a[key]) a.remove(key)
 }
+
 
 /**
  * Простая (2 балла)
@@ -135,7 +148,11 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * В выходном списке не должно быть повторяющихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
+    var both = mutableListOf<String>()
+    for (el in a) if (b.contains(el) && !both.contains(el)) both.add(el)
+    return both
+}
 
 /**
  * Средняя (3 балла)
@@ -155,7 +172,6 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
-
 /**
  * Средняя (4 балла)
  *
