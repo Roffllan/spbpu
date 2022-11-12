@@ -2,7 +2,10 @@
 
 package lesson3.task1
 
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 
 // Урок 3: циклы
@@ -77,7 +80,7 @@ fun main(){
     /**print(minDivisor(21))*/
     /**print(maxDivisor(1231))*/
     /**print(collatzSteps(15))*/
-    print(lcm(1, 1))
+    //print(lcm(1, 1))
     //print(isCoPrime(66735, 50000 ))
     /**print(hasDifferentDigits(555))*/
     //print(squareSequenceDigit(17))
@@ -110,8 +113,8 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var a:Int = 1
-    var b:Int = 1
+    var a = 1
+    var b = 1
     for (el in 3..n){
         if (el % 2 == 0) a +=b
         else b += a
@@ -176,7 +179,7 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var count:Int = 1
+    var count = 1
     var proizv = m * n
     while (proizv >= ++count) if (count % m == 0 && count % n == 0) return count
     return 1
@@ -190,7 +193,7 @@ fun lcm(m: Int, n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var count:Int = 1
+    var count = 1
     var proizv = if (m < n) m; else n
     while (proizv >= ++count) if (m % count == 0 && n % count == 0) return false
     return true
@@ -204,7 +207,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun revert(n: Int): Int {
-    var num:Int = 0
+    var num = 0
     var del = n
     while (true){
         num += del % 10
@@ -235,8 +238,8 @@ fun isPalindrome(n: Int): Boolean = n == revert(n)
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var num:Int = n
-    var digit:Int = n % 10
+    var num = n
+    var digit = n % 10
     while (num > 0){
         if (num % 10 == digit) num /= 10
         else return true
@@ -253,7 +256,20 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var an:Double
+    var sinA = 0.0
+    var i = 1
+    var t = 0
+    val newX = x % (2 * PI)
+    do {
+        an = (newX.pow(i) / factorial(i)) * (-1.0).pow(t)
+        sinA += an
+        i += 2
+        t++
+    } while (abs(an).compareTo(eps) == 1)
+    return sinA
+}
 
 /**
  * Средняя (4 балла)
@@ -264,7 +280,20 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var an:Double
+    var cosA = 0.0
+    var i = 0
+    var t = 0
+    val newX = x % (2 * PI)
+    do {
+        an = (newX.pow(i) / factorial(i)) * (-1.0).pow(t)
+        cosA += an
+        i += 2
+        t++
+    } while (abs(an).compareTo(eps) == 1)
+    return cosA
+}
 
 /**
  * Сложная (4 балла)

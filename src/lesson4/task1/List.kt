@@ -125,7 +125,7 @@ fun main(){
     //print(factorize(75))
     //print(factorizeToString(75))
     //print(convert(100, 4))
-    print(russian(210441))
+    //print(russian(210441))
 }
 
 /**
@@ -136,7 +136,7 @@ fun main(){
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-    var summ:Double = 0.0
+    var summ = 0.0
     for (el in v) summ += el.pow(2.0)
     return sqrt(summ)
 }
@@ -147,7 +147,7 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    var summ:Double = 0.0
+    var summ = 0.0
     for (el in list) summ += el
     return if (summ != 0.0) summ / list.size else 0.0
 
@@ -163,7 +163,7 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     if (list.size == 0) return list
-    val sp:Double = mean(list)
+    val sp = mean(list)
     for (el in list.indices) list[el] -= sp
     return list
 }
@@ -176,8 +176,8 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
 fun times(a: List<Int>, b: List<Int>): Int {
-    var count:Int = 0
-    var summ:Int = 0
+    var count = 0
+    var summ = 0
     while (count < a.size) summ += a[count] * b[count++]
     return summ
 }
@@ -191,9 +191,9 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int {
-    var count:Int = -1
-    var summ:Int = 0
-    while(++count < p.size) summ += p[count] * Math.pow(x.toDouble(),count.toDouble()).toInt()
+    var count = -1
+    var summ = 0
+    while(++count < p.size) summ += p[count] * pow(x.toDouble(),count.toDouble()).toInt()
     return summ
 
 
@@ -210,7 +210,7 @@ fun polynom(p: List<Int>, x: Int): Int {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int>{
-    var count:Int = 0
+    var count = 0
     while (++count < list.size) list[count]+=list[count-1]
     return list
 }
@@ -224,8 +224,8 @@ fun accumulate(list: MutableList<Int>): MutableList<Int>{
  */
 fun factorize(n: Int): List<Int> {
     val sp = mutableListOf<Int>()
-    var num:Int = n
-    var count:Int = 1
+    var num = n
+    var count = 1
     while (num >= ++count) {
         if (num % count == 0){
             num = num / count
@@ -255,7 +255,7 @@ fun factorizeToString(n: Int): String {
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    var digit:Int = n
+    var digit = n
     val sp = mutableListOf<Int>()
     if (n == 0) return listOf(0)
     while (digit > 0){
@@ -277,9 +277,9 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
-    val letters:String = "abcdefghijklmnopqrstuvwxyzABC"
+    val letters = "abcdefghijklmnopqrstuvwxyzABC"
     var res = ""
-    var dig:Int = n
+    var dig = n
     if (n == 0) return "0"
     if (1 > base ||  base > 37) return "-1"
 
@@ -302,8 +302,8 @@ fun convertToString(n: Int, base: Int): String {
  */
 fun decimal(digits: List<Int>, base: Int): Int {
     var digits1: List<Int> = digits.reversed()
-    var count:Int = -1
-    var res:Int = 0
+    var count = -1
+    var res = 0
     while (++count < digits1.size) res += digits1[count] * Math.pow(base.toDouble(),count.toDouble()).toInt()
     return res
 }
@@ -321,9 +321,9 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int {
-    var summ:Int = 0
-    var count:Int = str.length
-    val letters:String = "0123456789abcdefghijklmnopqrstuvwxyzABC"
+    var summ = 0
+    var count = str.length
+    val letters = "0123456789abcdefghijklmnopqrstuvwxyzABC"
     for (x in str) summ += letters.indexOf(x) * pow(base*1.0,--count*1.0).toInt()
     return summ
 }
