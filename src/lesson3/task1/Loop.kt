@@ -90,6 +90,7 @@ fun main(){
     //        assertEquals(6, squareSequenceDigit(12))
     //        assertEquals(0, squareSequenceDigit(17))
     //        assertEquals(9, squareSequenceDigit(27))
+    print(fibSequenceDigit(2))
 }
 /**
  * Простая (2 балла)
@@ -307,9 +308,9 @@ fun cos(x: Double, eps: Double): Double {
  */
 fun squareSequenceDigit(n: Int): Int {
     /**digitNumber кол-во цифр в числе*/
-    var count:Int = 0
-    var num:Int = 0
-    var res:Int = 0
+    var count = 0
+    var num = 0
+    var res = 0
     while (n > count){
         res = ++num*num
         count += digitNumber(num*num)
@@ -327,4 +328,15 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var num = n
+    var x = 0
+    var count = 0
+    for (i in 1..n){
+        count = digitNumber((fib(i)))
+        if (count >= num){
+            return fib(i) / 10.0.pow(count - num).toInt() % 10
+        } else num -= count
+    }
+    return x
+}
