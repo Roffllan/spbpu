@@ -185,6 +185,7 @@ fun lcm(m: Int, n: Int): Int {
     var proizv = m*n
     while (proizv >= ++count) if (count % m == 0 && count % n == 0) return count
     return 1
+
 }
 
 /**
