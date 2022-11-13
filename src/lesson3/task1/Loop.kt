@@ -104,6 +104,7 @@ fun digitNumber(n: Int): Int {
     var num = n
     while (num != 0) { kol++; num /= 10 }
     return if (kol == 0) 1 else kol
+
 }
 
 /**
