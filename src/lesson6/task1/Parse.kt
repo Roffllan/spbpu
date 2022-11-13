@@ -2,6 +2,9 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+import java.lang.NumberFormatException
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +77,22 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val season = str.split(" ")
+    val month1 = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    if (season.size == 3 && season[1] in month1){
+        try {
+            val day = season[0].toInt()
+            val month2 = month1.indexOf(season[1])+1
+            val year = season[2].toInt()
+            if (day > daysInMonth(month2, year)) return ""
+            return String.format("%02d.%02d.%d", day, month2, year)
+        } catch (e: NumberFormatException) {
+            return ""
+        }
+    } else return ""
+
+}
 
 /**
  * Средняя (4 балла)
