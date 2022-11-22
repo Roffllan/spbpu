@@ -3,10 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
-import lesson1.task1.sqr
-import kotlin.jvm.internal.Intrinsics.Kotlin
 import kotlin.math.*
-
 
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
@@ -65,7 +62,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
     return -sqrt(y3)           // 7
 }
 
-fun main(){
+fun main() {
     /** Задача 1
     print("Введите возраст:")
     var voz:Int = readln().toInt()
@@ -73,19 +70,19 @@ fun main(){
      */
     /**
     print(segmentLength(5,14,3,16))
-    */
+     */
     /**
     print(timeForHalfWay(20.0, 15.0, 16.0, 25.0, 30.0, 50.0))
-    */
+     */
     /**
-     print(whichRookThreatens(1,2,5,7,1,3))
-    */
+    print(whichRookThreatens(1,2,5,7,1,3))
+     */
     /**
     print(rookOrBishopThreatens(1,1,2,5,6,1))
-    */
+     */
     /**
     print(triangleKind(6.0,6.0,3.0))
-    */
+     */
     print(ageDescription(111))
 
 
@@ -101,12 +98,12 @@ fun ageDescription(age: Int): String {
     /** 0, 5-20 - лет
     1 - год
     2 - 4 - года */
-    var a:Int = age
-    if (!(a in 1..199)) return "Введите корректный возраст";
+    var a: Int = age
+    if (!(a in 1..199)) return "Введите корректный возраст"
     if (a > 100) a %= 100
-    if (a % 10 == 0 || a in (5..20) || a % 10 in (5..9)) return "$age лет";
-    if (a % 10 == 1) return "$age год";
-    return "$age года";
+    if (a % 10 == 0 || a in (5..20) || a % 10 in (5..9)) return "$age лет"
+    if (a % 10 == 1) return "$age год"
+    return "$age года"
 
 }
 
@@ -122,7 +119,7 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    val halfS = (t1 * v1 + t2 * v2 + t3 * v3)/2
+    val halfS = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     return when {
         halfS <= t1 * v1 -> halfS / v1
         halfS <= t1 * v1 + t2 * v2 -> (halfS - t1 * v1) / v2 + t1
@@ -144,9 +141,9 @@ fun whichRookThreatens(
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
 ): Int {
-    var dRook1 = kingX == rookX1 || kingY == rookY1
-    var dRook2 = kingX == rookX2 || kingY == rookY2
-    return when{
+    val dRook1 = kingX == rookX1 || kingY == rookY1
+    val dRook2 = kingX == rookX2 || kingY == rookY2
+    return when {
         dRook1 && dRook2 -> 3
         dRook1 -> 1
         dRook2 -> 2
@@ -169,8 +166,8 @@ fun rookOrBishopThreatens(
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
 ): Int {
-    var dRook = kingX == rookX || kingY == rookY
-    var dBishop = abs(kingX - bishopX) == abs(kingY - bishopY)
+    val dRook = kingX == rookX || kingY == rookY
+    val dBishop = abs(kingX - bishopX) == abs(kingY - bishopY)
     return if (dRook && dBishop) 3
     else {
         if (dRook) return 1
@@ -188,9 +185,9 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    var akv:Double = a.pow(2.0)
-    var bkv:Double = b.pow(2.0)
-    var ckv:Double = c.pow(2.0)
+    val akv = a.pow(2.0)
+    val bkv = b.pow(2.0)
+    val ckv = c.pow(2.0)
     return when {
         ((a + b < c) || (b + c < a) || (a + c < b)) -> -1
         ((akv == bkv + ckv) || (bkv == akv + ckv) || (ckv == akv + bkv)) -> 1

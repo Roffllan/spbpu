@@ -68,12 +68,12 @@ fun digitCountInNumber(n: Int, m: Int): Int =
         else -> digitCountInNumber(n / 10, m) + digitCountInNumber(n % 10, m)
     }
 
-fun main(){
+fun main() {
 
     //print(digitNumber(1))
 
     /**
-     print(revert(1234567))
+    print(revert(1234567))
      */
     /** (print (isPalindrome(23432)) */
     /**print(fib(1))*/
@@ -92,6 +92,7 @@ fun main(){
     //        assertEquals(9, squareSequenceDigit(27))
     print(fibSequenceDigit(2))
 }
+
 /**
  * Простая (2 балла)
  *
@@ -103,7 +104,9 @@ fun main(){
 fun digitNumber(n: Int): Int {
     var kol = 0
     var num = n
-    while (num != 0) { kol++; num /= 10 }
+    while (num != 0) {
+        kol++; num /= 10
+    }
     return if (kol == 0) 1 else kol
 
 }
@@ -117,12 +120,13 @@ fun digitNumber(n: Int): Int {
 fun fib(n: Int): Int {
     var a = 1
     var b = 1
-    for (el in 3..n){
-        if (el % 2 == 0) a +=b
+    for (el in 3..n) {
+        if (el % 2 == 0) a += b
         else b += a
     }
     return if (a > b) a else b
 }
+
 /**
  * Простая (2 балла)
  *
@@ -130,7 +134,7 @@ fun fib(n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var count = 1
-    while (!(n % ++count == 0));
+    while (n % ++count != 0);
     return count
 
 }
@@ -142,7 +146,7 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var count = 1
-    while (!(n % ++count == 0));
+    while (n % ++count != 0);
     return n / count
 }
 
@@ -165,8 +169,8 @@ fun maxDivisor(n: Int): Int {
 fun collatzSteps(x: Int): Int {
     var count = 0
     var step = x
-    while(step != 1){
-        if (step % 2 == 0) step = step / 2
+    while (step != 1) {
+        if (step % 2 == 0) step /= 2
         else step = 3 * step + 1
         ++count
     }
@@ -181,8 +185,8 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var count = if (m > n) m-1 else n-1
-    var proizv = m*n
+    var count = if (m > n) m - 1 else n - 1
+    val proizv = m * n
     while (proizv >= ++count) if (count % m == 0 && count % n == 0) return count
     return 1
 
@@ -197,7 +201,7 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var count = 1
-    var proizv = if (m < n) m; else n
+    val proizv = if (m < n) m; else n
     while (proizv >= ++count) if (m % count == 0 && n % count == 0) return false
     return true
 }
@@ -212,7 +216,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
 fun revert(n: Int): Int {
     var num = 0
     var del = n
-    while (true){
+    while (true) {
         num += del % 10
         del /= 10
         if (del == 0) return num
@@ -242,8 +246,8 @@ fun isPalindrome(n: Int): Boolean = n == revert(n)
  */
 fun hasDifferentDigits(n: Int): Boolean {
     var num = n
-    var digit = n % 10
-    while (num > 0){
+    val digit = n % 10
+    while (num > 0) {
         if (num % 10 == digit) num /= 10
         else return true
     }
@@ -260,13 +264,12 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    var an:Double
     var sinA = 0.0
     var i = 1
     var t = 0
     val newX = x % (2 * PI)
     do {
-        an = (newX.pow(i) / factorial(i)) * (-1.0).pow(t)
+        val an = (newX.pow(i) / factorial(i)) * (-1.0).pow(t)
         sinA += an
         i += 2
         t++
@@ -284,13 +287,12 @@ fun sin(x: Double, eps: Double): Double {
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
 fun cos(x: Double, eps: Double): Double {
-    var an:Double
     var cosA = 0.0
     var i = 0
     var t = 0
     val newX = x % (2 * PI)
     do {
-        an = (newX.pow(i) / factorial(i)) * (-1.0).pow(t)
+        val an = (newX.pow(i) / factorial(i)) * (-1.0).pow(t)
         cosA += an
         i += 2
         t++
@@ -312,11 +314,11 @@ fun squareSequenceDigit(n: Int): Int {
     var count = 0
     var num = 0
     var res = 0
-    while (n > count){
-        res = ++num*num
-        count += digitNumber(num*num)
+    while (n > count) {
+        res = ++num * num
+        count += digitNumber(num * num)
     }
-    res /= Math.pow(10.0, (count-n).toDouble()).toInt()
+    res /= Math.pow(10.0, (count - n).toDouble()).toInt()
     return res % 10
 }
 
@@ -331,13 +333,12 @@ fun squareSequenceDigit(n: Int): Int {
  */
 fun fibSequenceDigit(n: Int): Int {
     var num = n
-    var x = 0
     var count = 0
-    for (i in 1..n){
+    for (i in 1..n) {
         count = digitNumber((fib(i)))
-        if (count >= num){
+        if (count >= num) {
             return fib(i) / 10.0.pow(count - num).toInt() % 10
         } else num -= count
     }
-    return x
+    return 0
 }
