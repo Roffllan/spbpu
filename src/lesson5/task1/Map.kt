@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
+@file:Suppress("Stepan", "ConvertCallChainIntoSequence")
 
 package lesson5.task1
 
@@ -101,7 +101,7 @@ fun main(){
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
-    var rg = mutableMapOf<Int, MutableList<String>>()
+    val rg = mutableMapOf<Int, MutableList<String>>()
     for ((name, grad) in grades){
         if (rg[grad].isNullOrEmpty()) rg[grad] = mutableListOf(name)
         else rg[grad]?.add(name)
@@ -154,7 +154,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>){
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    var both = mutableListOf<String>()
+    val both = mutableListOf<String>()
     for (el in a) if (b.contains(el) && !both.contains(el)) both.add(el)
     return both
 }
@@ -177,7 +177,7 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    var sp = mutableMapOf<String, String>()
+    val sp = mutableMapOf<String, String>()
     for ((key, value) in mapA){
         if (!mapB.containsKey(key)) sp.put(key, value)
         else if(!mapB.containsValue(mapA[key])) sp.put(key,value+", "+mapB[key])
@@ -198,8 +198,8 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    var count = mutableMapOf<String,Double>()
-    var summ = mutableMapOf<String,Double>()
+    val count = mutableMapOf<String,Double>()
+    val summ = mutableMapOf<String,Double>()
     for ((key, value ) in stockPrices){
         if (!count.containsKey(key)) {
             count.put(key,1.0)

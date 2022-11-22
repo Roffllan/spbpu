@@ -1,9 +1,8 @@
-@file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
+@file:Suppress("Stepan", "ConvertCallChainIntoSequence")
 
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import lesson3.task1.minDivisor
 import java.lang.Math.pow
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -178,7 +177,9 @@ fun center(list: MutableList<Double>): MutableList<Double> {
 fun times(a: List<Int>, b: List<Int>): Int {
     var count = 0
     var summ = 0
-    while (count < a.size) summ += a[count] * b[count++]
+    while (count < a.size) {
+        summ += a[count] * b[count++]
+    }
     return summ
 }
 
@@ -193,7 +194,9 @@ fun times(a: List<Int>, b: List<Int>): Int {
 fun polynom(p: List<Int>, x: Int): Int {
     var count = -1
     var summ = 0
-    while(++count < p.size) summ += p[count] * pow(x.toDouble(),count.toDouble()).toInt()
+    while(++count < p.size) {
+        summ += p[count] * pow(x.toDouble(), count.toDouble()).toInt()
+    }
     return summ
 
 
@@ -211,7 +214,9 @@ fun polynom(p: List<Int>, x: Int): Int {
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int>{
     var count = 0
-    while (++count < list.size) list[count]+=list[count-1]
+    while (++count < list.size) {
+        list[count] += list[count - 1]
+    }
     return list
 }
 
@@ -228,7 +233,7 @@ fun factorize(n: Int): List<Int> {
     var count = 1
     while (num >= ++count) {
         if (num % count == 0){
-            num = num / count
+            num /= count
             sp.add(count)
             count = 1
         }
@@ -259,8 +264,8 @@ fun convert(n: Int, base: Int): List<Int> {
     val sp = mutableListOf<Int>()
     if (n == 0) return listOf(0)
     while (digit > 0){
-        sp.add(0,digit % base)
-        digit = digit / base
+        sp.add(0, digit % base)
+        digit /= base
     }
     return sp
 }
@@ -301,10 +306,10 @@ fun convertToString(n: Int, base: Int): String {
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    var digits1: List<Int> = digits.reversed()
+    val reversedDigits: List<Int> = digits.reversed()
     var count = -1
     var res = 0
-    while (++count < digits1.size) res += digits1[count] * Math.pow(base.toDouble(),count.toDouble()).toInt()
+    while (++count < reversedDigits.size) res += reversedDigits[count] * pow(base.toDouble(), count.toDouble()).toInt()
     return res
 }
 
@@ -324,7 +329,7 @@ fun decimalFromString(str: String, base: Int): Int {
     var summ = 0
     var count = str.length
     val letters = "0123456789abcdefghijklmnopqrstuvwxyzABC"
-    for (x in str) summ += letters.indexOf(x) * pow(base*1.0,--count*1.0).toInt()
+    for (x in str) summ += letters.indexOf(x) * pow(base * 1.0, --count * 1.0).toInt()
     return summ
 }
 
@@ -336,18 +341,18 @@ fun decimalFromString(str: String, base: Int): Int {
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
+val units: List<String> = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
+val unitsRoman: List<String> = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC", "C")
+val hundredsRoman: List<String> = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM", "M")
+val thousandsRoman: List<String> = listOf("", "M", "MM", "MMM")
 fun roman(n: Int): String {
-    val count_str:List<String> = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
-    val decards_str:List<String> = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC", "C")
-    val hund_str:List<String> = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM", "M")
-    val thou_str:List<String> = listOf("", "M", "MM", "MMM")
-    var res:String = ""
-    var digit:String = n.toString()
-    while (digit.length != 0){
-        if (digit.length == 4) res += thou_str[digit[0].digitToInt()]
-        if (digit.length == 3) res += hund_str[digit[0].digitToInt()];
-        if (digit.length == 2) res += decards_str[digit[0].digitToInt()];
-        if (digit.length == 1) res += count_str[digit[0].digitToInt()];
+    var res = ""
+    var digit = n.toString()
+    while (digit.isNotEmpty()) {
+        if (digit.length == 4) res += thousandsRoman[digit[0].digitToInt()]
+        if (digit.length == 3) res += hundredsRoman[digit[0].digitToInt()]
+        if (digit.length == 2) res += unitsRoman[digit[0].digitToInt()]
+        if (digit.length == 1) res += units[digit[0].digitToInt()]
         digit = digit.substring(1)
     }
     return res
@@ -360,35 +365,35 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
+val digits: List<String> = listOf("", " один", " два", " три", " четыре", " пять", " шесть", " семь", " восемь", " девять")
+val teens: List<String> = listOf("", " одиннадцать", " двенадцать", " тринадцать", " четырнадцать", " пятнадцать", " шестнадцать", " семнадцать", " восемнадцать", " девятнадцать")
+val tens: List<String> = listOf(""," десять", " двадцать", " тридцать", " сорок", " пятьдесят", " шестьдесят", " семьдесят", " восемьдесят", " девяносто")
+val hundreds: List<String> = listOf("", " сто", " двести", " триста", " четыреста", " пятьсот", " шестьсот", " семьсот", " восемьсот", " девятьсот")
+val thousands: List<String> = listOf(" тысяч", " тысяча", " тысячи")
+val digitDeclination: List<String> = listOf("", " одна", " две")
 fun russian(n: Int): String {
-    val dig1:List<String> = listOf("", " один", " два", " три", " четыре", " пять", " шесть", " семь", " восемь", " девять")
-    val dig2:List<String> = listOf("", " одиннадцать", " двенадцать", " тринадцать", " четырнадцать", " пятнадцать", " шестнадцать", " семнадцать", " восемнадцать", " девятнадцать")
-    val dig3:List<String> = listOf(""," десять", " двадцать", " тридцать", " сорок", " пятьдесят", " шестьдесят", " семьдесят", " восемьдесят", " девяносто")
-    val dig4:List<String> = listOf("", " сто", " двести", " триста", " четыреста", " пятьсот", " шестьсот", " семьсот", " восемьсот", " девятьсот")
-    val dig5:List<String> = listOf(" тысяч", " тысяча", " тысячи")
-    val dig6:List<String> = listOf("", " одна", " две")
-    var res:String = ""
-    var digit:String = n.toString()
-    while (digit.length != 0){
+    var res = ""
+    var digit = n.toString()
+    while (digit.isNotEmpty()){
         if (digit.length == 1 || digit.length == 4) {
-            if (digit.length == 4 && digit[0].digitToInt() in 1..2){
-                if (digit[0].digitToInt() == 1) res += dig6[1]
-                if (digit[0].digitToInt() == 2) res += dig6[2]
+            if (digit.length == 4 && digit[0].digitToInt() in 1..2) {
+                if (digit[0].digitToInt() == 1) res += digitDeclination[1]
+                if (digit[0].digitToInt() == 2) res += digitDeclination[2]
             }
-            else res += dig1[digit[0].digitToInt()]
+            else res += digits[digit[0].digitToInt()]
             if (digit.length == 4)
-                if (digit[0].digitToInt() == 1) res += dig5[1]
-                else if (digit[0].digitToInt() in 2..4) res += dig5[2]
-                else res += dig5[0]
+                if (digit[0].digitToInt() == 1) res += thousands[1]
+                else if (digit[0].digitToInt() in 2..4) res += thousands[2]
+                else res += thousands[0]
         }
         if (digit.length == 2 || digit.length == 5)
             if (digit[0].digitToInt() == 1 && digit[1].digitToInt() > 0) {
-                res += dig2[digit[1].digitToInt()]
-                if (digit.length == 5) res += dig5[0]
+                res += teens[digit[1].digitToInt()]
+                if (digit.length == 5) res += thousands[0]
                 digit = digit.substring(1)
             }
-            else res += dig3[digit[0].digitToInt()]
-        if (digit.length == 3 || digit.length == 6) res += dig4[digit[0].digitToInt()]
+            else res += tens[digit[0].digitToInt()]
+        if (digit.length == 3 || digit.length == 6) res += hundreds[digit[0].digitToInt()]
         digit = digit.substring(1)
     }
     return res.substring(1)
