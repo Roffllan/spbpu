@@ -144,11 +144,8 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var count = 1
-    while (n % ++count != 0);
-    return n / count
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
+
 
 /**
  * Простая (2 балла)
@@ -185,11 +182,15 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var count = if (m > n) m - 1 else n - 1
-    val proizv = m * n
-    while (proizv >= ++count) if (count % m == 0 && count % n == 0) return count
-    return 1
-
+    var x = m
+    var y = n
+    while (x != 0 && y != 0) {
+        if (x > y) {
+            x %= y
+        } else y %= x
+    }
+    var count: Int = x + y
+    return m * n / count
 }
 
 /**
@@ -201,7 +202,7 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var count = 1
-    val proizv = if (m < n) m; else n
+    val proizv = if (m < n) m else n
     while (proizv >= ++count) if (m % count == 0 && n % count == 0) return false
     return true
 }

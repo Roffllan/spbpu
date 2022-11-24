@@ -85,7 +85,8 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
     for (word in text) res.add(word)
     return res
 }
-fun main(){
+
+fun main() {
     //print(mergePhoneBooks( mapOf("Emergency" to "112"),mapOf("Emergency" to "911", "Police" to "02")))
     //print(averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0, "NFLX" to 50.0)))
 }
@@ -102,7 +103,7 @@ fun main(){
  */
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
     val rg = mutableMapOf<Int, MutableList<String>>()
-    for ((name, grad) in grades){
+    for ((name, grad) in grades) {
         if (rg[grad].isNullOrEmpty()) rg[grad] = mutableListOf(name)
         else rg[grad]?.add(name)
     }
@@ -119,7 +120,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean{
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     for ((key) in a) {
         if (b.containsValue(a[key])) return true
     }
@@ -141,8 +142,10 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean{
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
-fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>){
-    for ((key) in b) if (b[key] == a[key]) a.remove(key)
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
+    for ((key) in b) {
+        if (b[key] == a[key]) a.remove(key)
+    }
 }
 
 
@@ -178,15 +181,16 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     val sp = mutableMapOf<String, String>()
-    for ((key, value) in mapA){
+    for ((key, value) in mapA) {
         if (!mapB.containsKey(key)) sp.put(key, value)
-        else if(!mapB.containsValue(mapA[key])) sp.put(key,value+", "+mapB[key])
+        else if (!mapB.containsValue(mapA[key])) sp.put(key, value + ", " + mapB[key])
     }
-    for ((key, value) in mapB){
+    for ((key, value) in mapB) {
         if (!sp.containsKey(key)) sp.put(key, value)
     }
     return sp
 }
+
 /**
  * Средняя (4 балла)
  *
@@ -198,20 +202,19 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    val count = mutableMapOf<String,Double>()
-    val summ = mutableMapOf<String,Double>()
-    for ((key, value ) in stockPrices){
+    val count = mutableMapOf<String, Double>()
+    val summ = mutableMapOf<String, Double>()
+    for ((key, value) in stockPrices) {
         if (!count.containsKey(key)) {
-            count.put(key,1.0)
-            summ.put(key,value)
-        }
-        else {
-            count.put(key, count.getValue(key)+1.0)
-            summ.put(key,value+summ.getValue(key))
+            count.put(key, 1.0)
+            summ.put(key, value)
+        } else {
+            count.put(key, count.getValue(key) + 1.0)
+            summ.put(key, value + summ.getValue(key))
         }
     }
-    for ((key,value ) in summ){
-        summ.put(key,value/count.getValue(key))
+    for ((key, value) in summ) {
+        summ.put(key, value / count.getValue(key))
     }
     return summ
 }
@@ -234,9 +237,9 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
     val KN = stuff.filterValues { it.first == kind }
     var NofKind = ""
-    var minn:Double? = null
+    var minn: Double? = null
     if (KN.isEmpty()) return null
-    for ((name, value) in KN){
+    for ((name, value) in KN) {
         if (minn == null || value.second < minn) {
             minn = value.second
             NofKind = name
