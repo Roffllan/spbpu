@@ -147,6 +147,7 @@ fun minDivisor(n: Int): Int {
 fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 
+
 /**
  * Простая (2 балла)
  *
@@ -189,7 +190,7 @@ fun lcm(m: Int, n: Int): Int {
             x %= y
         } else y %= x
     }
-    var count: Int = x + y
+    val count: Int = x + y
     return m * n / count
 }
 
