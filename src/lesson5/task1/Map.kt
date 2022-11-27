@@ -158,7 +158,9 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
     val both = mutableListOf<String>()
-    for (el in a) if (b.contains(el) && !both.contains(el)) both.add(el)
+    for (el in a) {
+        if (b.contains(el) && !both.contains(el)) both.add(el)
+    }
     return both
 }
 
@@ -182,11 +184,11 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     val sp = mutableMapOf<String, String>()
     for ((key, value) in mapA) {
-        if (!mapB.containsKey(key)) sp.put(key, value)
-        else if (!mapB.containsValue(mapA[key])) sp.put(key, value + ", " + mapB[key])
+        if (!mapB.containsKey(key)) sp[key] = value
+        else if (!mapB.containsValue(mapA[key])) sp[key] = value + ", " + mapB[key]
     }
     for ((key, value) in mapB) {
-        if (!sp.containsKey(key)) sp.put(key, value)
+        if (!sp.containsKey(key)) sp[key] = value
     }
     return sp
 }
@@ -206,15 +208,15 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
     val summ = mutableMapOf<String, Double>()
     for ((key, value) in stockPrices) {
         if (!count.containsKey(key)) {
-            count.put(key, 1.0)
-            summ.put(key, value)
+            count[key] = 1.0
+            summ[key] = value
         } else {
-            count.put(key, count.getValue(key) + 1.0)
-            summ.put(key, value + summ.getValue(key))
+            count[key] = count.getValue(key) + 1.0
+            summ[key] = value + summ.getValue(key)
         }
     }
     for ((key, value) in summ) {
-        summ.put(key, value / count.getValue(key))
+        summ[key] = value / count.getValue(key)
     }
     return summ
 }
@@ -235,17 +237,17 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    val KN = stuff.filterValues { it.first == kind }
-    var NofKind = ""
+    val kindName = stuff.filterValues { it.first == kind }
+    var nameOfKind = ""
     var minn: Double? = null
-    if (KN.isEmpty()) return null
-    for ((name, value) in KN) {
+    if (kindName.isEmpty()) return null
+    for ((name, value) in kindName) {
         if (minn == null || value.second < minn) {
             minn = value.second
-            NofKind = name
+            nameOfKind = name
         }
     }
-    return NofKind
+    return nameOfKind
 }
 
 /**
