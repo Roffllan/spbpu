@@ -89,6 +89,8 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
 fun main() {
     //print(mergePhoneBooks( mapOf("Emergency" to "112"),mapOf("Emergency" to "911", "Police" to "02")))
     //print(averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0, "NFLX" to 50.0)))
+    //print(extractRepeats(listOf("a", "b", "a", "a", "c", "c")))
+    //println(hasAnagrams(listOf("a")))
 }
 
 /**
@@ -156,13 +158,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * В выходном списке не должно быть повторяющихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    val both = mutableListOf<String>()
-    for (el in a) {
-        if (b.contains(el) && !both.contains(el)) both.add(el)
-    }
-    return both
-}
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = (a intersect b).toList()
 
 /**
  * Средняя (3 балла)
@@ -181,17 +177,7 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    val sp = mutableMapOf<String, String>()
-    for ((key, value) in mapA) {
-        if (!mapB.containsKey(key)) sp[key] = value
-        else if (!mapB.containsValue(mapA[key])) sp[key] = value + ", " + mapB[key]
-    }
-    for ((key, value) in mapB) {
-        if (!sp.containsKey(key)) sp[key] = value
-    }
-    return sp
-}
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
 
 /**
  * Средняя (4 балла)
@@ -259,7 +245,13 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    if (chars.isEmpty()) return false
+    for (el in word) {
+        if (!(chars.contains(el.lowercaseChar()) || chars.contains(el.uppercaseChar()))) return false
+    }
+    return true
+}
 
 /**
  * Средняя (4 балла)
@@ -273,7 +265,17 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    val sp = mutableMapOf<String, Int>()
+    for (el in list) {
+        var count = 0
+        for (index in list) {
+            if (el == index) count++
+        }
+        if (count > 1) sp[el] = count
+    }
+    return sp
+}
 
 /**
  * Средняя (3 балла)
@@ -339,10 +341,18 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  * используя то, что вы узнали в данном уроке.
  *
  * Например:
- *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
+ *   findSumOfTwo(listOf(1, 2, 3), 5) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    for (exampleDigit in list){
+        for (digit in list){
+            if (exampleDigit + digit == number && list.indexOf(exampleDigit) != list.indexOf(digit))
+                return Pair(list.indexOf(exampleDigit), list.indexOf(digit))
+        }
+    }
+    return Pair(-1, -1)
+}
 
 /**
  * Очень сложная (8 баллов)
