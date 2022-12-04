@@ -108,9 +108,10 @@ val months = listOf("", "января", "февраля", "марта", "апр�
 fun dateDigitToStr(digital: String): String {
     val partsOfdate = digital.split(".")
     try {
+        if (partsOfdate.size != 3) return ""
         val intMonth = partsOfdate[1].toInt()
         val intDay = partsOfdate[0].toInt()
-        if (partsOfdate.size == 3 && intMonth in 1..12) {
+        if (intMonth in 1..12) {
             val monthCount = months[intMonth]
             val year = partsOfdate[2]
             if (intDay > daysInMonth(intMonth, year.toInt())) return ""
