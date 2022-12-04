@@ -51,20 +51,20 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    println("Введите время в формате ЧЧ:ММ:СС")
-    val line = readLine()
-    if (line != null) {
-        val seconds = timeStrToSeconds(line)
-        if (seconds == -1) {
-            println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        } else {
-            println("Прошло секунд с начала суток: $seconds")
-        }
-    } else {
-        println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
-    }
+    //println("Введите время в формате ЧЧ:ММ:СС")
+    //val line = readLine()
+    //if (line != null) {
+    //val seconds = timeStrToSeconds(line)
+    //if (seconds == -1) {
+    //println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
+    //} else {
+    //println("Прошло секунд с начала суток: $seconds")
+    //}
+    //} else {
+    //println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
+    //}
+    print(dateStrToDigit("01 января 1"))
 }
-
 
 /**
  * Средняя (4 балла)
@@ -77,27 +77,13 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-val monthNames = listOf(
-    " января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря"
-)
-
+val monthNames = listOf("", "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
 fun dateStrToDigit(str: String): String {
     val season = str.split(" ")
     if (season.size == 3 && season[1] in monthNames) {
         try {
             val day = season[0].toInt()
-            val month2 = monthNames.indexOf(season[1]) + 1
+            val month2 = monthNames.indexOf(season[1])
             val year = season[2].toInt()
             if (day > daysInMonth(month2, year)) return ""
             return String.format("%02d.%02d.%d", day, month2, year)
@@ -118,7 +104,24 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+val months = listOf("", "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+fun dateDigitToStr(digital: String): String {
+    val partsOfdate = digital.split(".")
+    try {
+        val intMonth = partsOfdate[1].toInt()
+        if (partsOfdate.size == 3 && intMonth in 1..12) {
+            val day = partsOfdate[0].replace("0", "")
+            val monthCount = months[intMonth]
+            val year = partsOfdate[2]
+            if (day > daysInMonth(intMonth, year.toInt()).toString()) return ""
+            return String.format("%s %s %s", day, monthCount, year)
+        } else return ""
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+
+}
+
 
 /**
  * Средняя (4 балла)
