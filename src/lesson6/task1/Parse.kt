@@ -109,12 +109,12 @@ fun dateDigitToStr(digital: String): String {
     val partsOfdate = digital.split(".")
     try {
         val intMonth = partsOfdate[1].toInt()
+        val intDay = partsOfdate[0].toInt()
         if (partsOfdate.size == 3 && intMonth in 1..12) {
-            val day = partsOfdate[0].replace("0", "")
             val monthCount = months[intMonth]
             val year = partsOfdate[2]
-            if (day > daysInMonth(intMonth, year.toInt()).toString()) return ""
-            return String.format("%s %s %s", day, monthCount, year)
+            if (intDay > daysInMonth(intMonth, year.toInt())) return ""
+            return String.format("%s %s %s", intDay, monthCount, year)
         } else return ""
     } catch (e: NumberFormatException) {
         return ""
