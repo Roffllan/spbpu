@@ -3,7 +3,6 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
-import org.intellij.lang.annotations.RegExp
 import java.lang.NumberFormatException
 
 // Урок 6: разбор строк, исключения
@@ -140,13 +139,13 @@ fun dateDigitToStr(digital: String): String {
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
 fun flattenPhoneNumber(phone: String): String {
-    if (!phone.contains(Regex("""\(\d{1}""")) && phone.contains(Regex("""\(""")) || phone.contains(Regex("""[^a]\W\_"""))) return ""
-    var correctPhone = Regex("""[~\(\)!@#${'$'}%^&*+\-\s]""").replace(phone,"")
-    println(correctPhone)
+    if (!phone.contains(Regex("""\(\d{1}""")) && phone.contains(Regex("""\(""")) || phone.contains(Regex("""[a-z_]"""))) return ""
+    var correctPhone = Regex("""[~()!@#${'$'}%^&*+\-\s]""").replace(phone, "")
+    //println(correctPhone)
     if (phone.startsWith("+")){
         correctPhone = "+$correctPhone"
     }
-    println(correctPhone)
+    //println(correctPhone)
     return correctPhone
 
 }
