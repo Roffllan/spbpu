@@ -4,6 +4,8 @@ package lesson6.task1
 
 import lesson2.task2.daysInMonth
 import java.lang.NumberFormatException
+import kotlin.math.exp
+import kotlin.math.max
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -64,7 +66,8 @@ fun main() {
     //println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     //}
     //print(dateStrToDigit("01 января 1"))
-    flattenPhoneNumber("a123")
+    //flattenPhoneNumber("a123")
+    println(bestLongJump("706 % - 717 - 703"))
 }
 
 /**
@@ -140,12 +143,11 @@ fun dateDigitToStr(digital: String): String {
  */
 fun flattenPhoneNumber(phone: String): String {
     if (!phone.contains(Regex("""\(\d{1}""")) && phone.contains(Regex("""\(""")) || phone.contains(Regex("""[a-z_]"""))) return ""
-    var correctPhone = Regex("""[~()!@#${'$'}%^&*+\-\s]""").replace(phone, "")
-    //println(correctPhone)
-    if (phone.startsWith("+")){
+    var correctPhone = Regex("""[~()!@#${'$'}%^&*+\-\s\[\]]""").replace(phone, "")
+    if (phone.startsWith("+")) {
         correctPhone = "+$correctPhone"
     }
-    //println(correctPhone)
+    if (correctPhone.length == 1) return ""
     return correctPhone
 
 }
@@ -160,7 +162,13 @@ fun flattenPhoneNumber(phone: String): String {
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    var longest = 0
+    if (jumps.contains(Regex("""[^%\d\s-]"""))) return -1
+    Regex("""[%\s-]""").replace(jumps, " ")
+        .split(" ").map { if (it.isNotEmpty() && it.toInt() > longest) longest = it.toInt() }
+    return (if (longest == 0) -1; else longest)
+}
 
 /**
  * Сложная (6 баллов)
