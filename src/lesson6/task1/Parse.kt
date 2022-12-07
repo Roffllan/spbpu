@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import org.intellij.lang.annotations.RegExp
 import java.lang.NumberFormatException
 
 // Урок 6: разбор строк, исключения
@@ -63,7 +64,8 @@ fun main() {
     //} else {
     //println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     //}
-    print(dateStrToDigit("01 января 1"))
+    //print(dateStrToDigit("01 января 1"))
+    flattenPhoneNumber("a123")
 }
 
 /**
@@ -104,7 +106,6 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-val months = listOf("", "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
 fun dateDigitToStr(digital: String): String {
     val partsOfdate = digital.split(".")
     try {
@@ -112,7 +113,7 @@ fun dateDigitToStr(digital: String): String {
         val intMonth = partsOfdate[1].toInt()
         val intDay = partsOfdate[0].toInt()
         if (intMonth in 1..12) {
-            val monthCount = months[intMonth]
+            val monthCount = monthNames[intMonth]
             val year = partsOfdate[2]
             if (intDay > daysInMonth(intMonth, year.toInt())) return ""
             return String.format("%s %s %s", intDay, monthCount, year)
@@ -138,7 +139,17 @@ fun dateDigitToStr(digital: String): String {
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    if (!phone.contains(Regex("""\(\d{1}""")) && phone.contains(Regex("""\(""")) || phone.contains(Regex("""[^a]\W\_"""))) return ""
+    var correctPhone = Regex("""[~\(\)!@#${'$'}%^&*+\-\s]""").replace(phone,"")
+    println(correctPhone)
+    if (phone.startsWith("+")){
+        correctPhone = "+$correctPhone"
+    }
+    println(correctPhone)
+    return correctPhone
+
+}
 
 /**
  * Средняя (5 баллов)
