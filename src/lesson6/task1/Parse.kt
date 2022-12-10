@@ -142,7 +142,7 @@ fun dateDigitToStr(digital: String): String {
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
 fun flattenPhoneNumber(phone: String): String {
-    if (!phone.contains(Regex("""\(\d{1}""")) && phone.contains(Regex("""\(""")) || phone.contains(Regex("""[a-z_]"""))) return ""
+    if (!phone.contains(Regex("""\(\d{1}""")) && phone.contains(Regex("""\(""")) || phone.contains(Regex("""[a-z_\[\]]"""))) return ""
     var correctPhone = Regex("""[~()!@#${'$'}%^&*+,.\-\s\[\]]""").replace(phone, "")
     if (phone.startsWith("+")) {
         correctPhone = "+$correctPhone"
@@ -187,7 +187,8 @@ fun bestHighJump(jumps: String): Int {
     if (!jumps.contains(Regex("""[\d+]"""))) return -1
     Regex("""[~()!@#${'$'}^&*,.\-\s\[\]]""").replace(jumps, " ")
         .split(" ").map {
-            if (it.isNotEmpty() && !it.contains(Regex("""[+%]""")) && it.toInt() > highest) highest = it.toInt()
+            if (it.isNotEmpty() && !it.contains(Regex("""[^0123456789]""")) && it.toInt() > highest) highest =
+                it.toInt()
             if (it.contains('%')) highest = 0
             if (it.contains('+') && highest > check) check = highest
         }
