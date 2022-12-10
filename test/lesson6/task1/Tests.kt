@@ -73,6 +73,7 @@ class Tests {
             "",
             flattenPhoneNumber("-- ---            -- - ----  -  -  - ---- -  -  -   -   -   +6 - 68 -9 - -- --- 83- [0-  -- - -----] ----  - -")
         )
+        assertEquals("", flattenPhoneNumber("){1=7"))
     }
 
     @Test
@@ -91,7 +92,7 @@ class Tests {
         assertEquals(226, bestHighJump("226 +"))
         assertEquals(-1, bestHighJump("???"))
         assertEquals(230, bestHighJump("220 + 224 %+ 228 %- 230 + 232 %%- 234 %"))
-        assertEquals(300, bestHighJump("100 + 400 % - 300 +"))
+        assertEquals(300, bestHighJump("100 + 400 % - % - 300 +"))
         assertEquals(-1, bestHighJump("0 kot5lin.Unit"))
     }
 
