@@ -83,7 +83,7 @@ fun main() {
     /**
     print(triangleKind(6.0,6.0,3.0))
      */
-    print(ageDescription(111))
+    //print(ageDescription(111))
 
 
 }

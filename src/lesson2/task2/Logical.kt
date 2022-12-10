@@ -50,9 +50,7 @@ fun main(){
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean {
-    return (number % 10 + number / 10 % 10) == (number / 100 % 10 + number / 1000)
-}
+fun isNumberHappy(number: Int): Boolean = (number % 10 + number / 10 % 10) == (number / 100 % 10 + number / 1000)
 
 /**
  * Простая (2 балла)

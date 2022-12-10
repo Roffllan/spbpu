@@ -90,7 +90,7 @@ fun main() {
     //        assertEquals(6, squareSequenceDigit(12))
     //        assertEquals(0, squareSequenceDigit(17))
     //        assertEquals(9, squareSequenceDigit(27))
-    print(fibSequenceDigit(2))
+    //print(fibSequenceDigit(2))
 }
 
 /**
