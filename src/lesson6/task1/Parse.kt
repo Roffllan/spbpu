@@ -143,11 +143,11 @@ fun dateDigitToStr(digital: String): String {
  */
 fun flattenPhoneNumber(phone: String): String {
     if (!phone.contains(Regex("""\(\d{1}""")) && phone.contains(Regex("""\(""")) || phone.contains(Regex("""[a-z_]"""))) return ""
-    var correctPhone = Regex("""[~()!@#${'$'}%^&*+\-\s\[\]]""").replace(phone, "")
+    var correctPhone = Regex("""[~()!@#${'$'}%^&*+,.\-\s\[\]]""").replace(phone, "")
     if (phone.startsWith("+")) {
         correctPhone = "+$correctPhone"
     }
-    if (correctPhone.length == 1) return ""
+    if (!correctPhone.contains(Regex("""[123456789]"""))) return ""
     return correctPhone
 
 }
@@ -182,6 +182,7 @@ fun bestLongJump(jumps: String): Int {
  * вернуть -1.
  */
 fun bestHighJump(jumps: String): Int = TODO()
+
 
 /**
  * Сложная (6 баллов)
