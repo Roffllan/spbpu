@@ -182,7 +182,16 @@ fun bestLongJump(jumps: String): Int {
  * вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-
+    var highest = 0
+    var check = 0
+    if (!jumps.contains(Regex("""[\d+]"""))) return -1
+    Regex("""[~()!@#${'$'}^&*,.\-\s\[\]]""").replace(jumps, " ")
+        .split(" ").map {
+            if (it.isNotEmpty() && !it.contains(Regex("""[+%]""")) && it.toInt() > highest) highest = it.toInt()
+            if (it.contains('%')) highest = 0
+            if (it.contains('+') && highest > check) check = highest
+        }
+    return (if (check == 0) -1; else check)
 }
 
 
