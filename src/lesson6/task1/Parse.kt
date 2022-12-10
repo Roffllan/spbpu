@@ -147,7 +147,7 @@ fun flattenPhoneNumber(phone: String): String {
     if (phone.startsWith("+")) {
         correctPhone = "+$correctPhone"
     }
-    if (!correctPhone.contains(Regex("""[123456789]"""))) return ""
+    if (!correctPhone.contains(Regex("""[123456789]""")) || correctPhone.length <= 3) return ""
     return correctPhone
 
 }
