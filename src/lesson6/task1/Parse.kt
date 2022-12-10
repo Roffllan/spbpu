@@ -147,7 +147,7 @@ fun flattenPhoneNumber(phone: String): String {
     if (phone.startsWith("+")) {
         correctPhone = "+$correctPhone"
     }
-    if (!correctPhone.contains(Regex("""[123456789]""")) || correctPhone.length <= 3) return ""
+    if (!correctPhone.contains(Regex("""[123456789]""")) || correctPhone.length <= 3 || correctPhone[0] == '0') return ""
     return correctPhone
 
 }
@@ -181,7 +181,9 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+
+}
 
 
 /**
