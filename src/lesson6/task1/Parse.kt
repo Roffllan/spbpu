@@ -209,7 +209,7 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    if (expression.contains(Regex("""[^0123456789+\s-]""")) || expression[0].toString()
+    if (expression.isEmpty() || expression.contains(Regex("""[^0123456789+\s-]""")) || expression[0].toString()
             .contains(Regex("""[^0123456789]"""))) {
         throw IllegalArgumentException()
     }

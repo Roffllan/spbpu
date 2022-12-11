@@ -116,6 +116,7 @@ class Tests {
         assertThrows(IllegalArgumentException::class.java) { plusMinus("2 +- 2") }
         assertThrows(IllegalArgumentException::class.java) { plusMinus("2 +-2") }
         assertThrows(IllegalArgumentException::class.java) { plusMinus("+2 +-2") }
+        assertThrows(IllegalArgumentException::class.java) { plusMinus("") }
     }
 
     @Test
