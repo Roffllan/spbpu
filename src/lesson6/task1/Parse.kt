@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import java.lang.IllegalArgumentException
 import java.lang.NumberFormatException
 import kotlin.math.exp
 import kotlin.math.max
@@ -67,7 +68,7 @@ fun main() {
     //}
     //print(dateStrToDigit("01 января 1"))
     //flattenPhoneNumber("a123")
-    println(bestLongJump("706 % - 717 - 703"))
+    //println(bestLongJump("706 % - 717 - 703"))
 }
 
 /**
@@ -187,7 +188,7 @@ fun bestHighJump(jumps: String): Int {
     var highest = 0
     var check = 0
     if (!jumps.contains(Regex("""[\d+]"""))) return -1
-    Regex("""[~()!@#${'$'}^&*,.\-\s\[\]]""").replace(jumps, " ")
+    Regex("""[~()!@#${'$'}^&*,.\s\[\]]""").replace(jumps, " ")
         .split(" ").map {
             if (it.isNotEmpty() && !it.contains(Regex("""[^0123456789]""")) && it.toInt() > highest) highest =
                 it.toInt()
@@ -207,7 +208,31 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    if (expression.contains(Regex("""[^0123456789+\s-]""")) || expression[0].toString()
+            .contains(Regex("""[^0123456789]"""))) {
+        throw IllegalArgumentException()
+    }
+    var digit = 0
+    var stroka = ""
+    var el = expression.split(" ").map {
+        if (it.contains(Regex("""[^0123456789]"""))) {
+            if (stroka.isEmpty() && it.contains("+") && it.length == 1) stroka = "+"
+            else if (stroka.isEmpty() && it.contains("-") && it.length == 1) stroka = "-"
+            else throw IllegalArgumentException()
+        } else if (expression.contains(Regex("""[0123456789]"""))) {
+            if (stroka.isNotEmpty()) {
+                digit += (if (stroka == "-") it.toInt() * -1; else it.toInt())
+                stroka = ""
+            } else {
+                digit = it.toInt()
+                stroka = ""
+            }
+        } else throw IllegalArgumentException()
+
+    }
+    return digit
+}
 
 /**
  * Сложная (6 баллов)
