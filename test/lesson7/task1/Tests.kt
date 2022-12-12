@@ -89,7 +89,9 @@ Basic, Ruby, Swift.
             mapOf("--" to 4, "ее" to 2, "животное" to 2, "." to 2),
             countSubstrings("input/substrings_in2.txt", listOf("--", "ее", "животное", "."))
         )
-        assertEquals(emptyMap<String, Int>(), lesson7.task1.countSubstrings("input/substrings_in3.txt", listOf()))
+        assertEquals(emptyMap<String, Int>(), lesson7.task1.countSubstrings("input/substrings_in3.txt", listOf())
+        )
+        assertEquals(mapOf("аб" to 1), countSubstrings("input/substrings_in4.txt", listOf("аб")))
     }
 
     @Test

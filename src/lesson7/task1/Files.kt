@@ -90,8 +90,8 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     substrings.forEach { string ->
         var count = 0
         val lowSubstring = string.lowercase()
-        var innerCount = 0
-        while (innerCount++ < line.length - lowSubstring.length) {
+        var innerCount = -1
+        while (++innerCount < line.length - lowSubstring.length + 1) {
             if (line.substring(innerCount, innerCount + lowSubstring.length).contains(lowSubstring)) ++count
         }
         completeMap[string] = count
