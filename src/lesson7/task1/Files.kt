@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import java.lang.IllegalArgumentException
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -52,6 +53,9 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
     }
     writer.close()
 }
+fun main(){
+
+}
 
 /**
  * Простая (8 баллов)
@@ -63,7 +67,11 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines()) {
+        if (!line.startsWith("_")) writer.appendLine(line)
+    }
+    writer.close()
 }
 
 /**
@@ -75,7 +83,21 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val completeMap = mutableMapOf<String, Int>()
+    val line = File(inputName).readText().lowercase()
+    if (line.isEmpty()) throw IllegalArgumentException()
+    substrings.forEach { string ->
+        var count = 0
+        val lowSubstring = string.lowercase()
+        var innerCount = 0
+        while (innerCount++ < line.length - lowSubstring.length) {
+            if (line.substring(innerCount, innerCount + lowSubstring.length).contains(lowSubstring)) ++count
+        }
+        completeMap[string] = count
+    }
+    return completeMap
+}
 
 
 /**
