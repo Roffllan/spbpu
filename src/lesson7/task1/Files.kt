@@ -4,6 +4,7 @@ package lesson7.task1
 
 import java.io.File
 import java.lang.IllegalArgumentException
+import kotlin.math.max
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -166,7 +167,36 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val colmpeteFile = File(outputName).bufferedWriter()
+    var maxx = -1
+    colmpeteFile.use{
+        for (line in File(inputName).readLines()) {
+            val withNoSpace = line.split(" ").filter { it != "" }
+            maxx = maxOf(maxx, withNoSpace.sumOf { it.length } + withNoSpace.size - 1)
+        }
+        for (line in File(inputName).readLines()) {
+            val withNoSpace = line.split(" ").filter { it != "" }
+            if (withNoSpace.isEmpty()) colmpeteFile.write("")
+            else if (withNoSpace.size == 1) colmpeteFile.write(withNoSpace[0])
+            else if (line.length == maxx) colmpeteFile.write(line)
+            else {
+                val spaces = maxx - withNoSpace.sumOf { it.length }
+                val btwSpaces = spaces / (withNoSpace.size - 1)
+                val dopSpace = spaces % (withNoSpace.size - 1)
+                var count = 0
+                for (el in 0 until (withNoSpace.size - 1)) {
+                    colmpeteFile.write(withNoSpace[el])
+                    for (secondEl in 0 until btwSpaces) colmpeteFile.write(" ")
+                    if (count < dopSpace) {
+                        colmpeteFile.write(" ")
+                        count++
+                    }
+                }
+                colmpeteFile.write(withNoSpace.last())
+            }
+            colmpeteFile.newLine()
+        }
+    }
 }
 
 /**
