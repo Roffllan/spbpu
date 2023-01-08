@@ -98,12 +98,13 @@ fun ageDescription(age: Int): String {
     /** 0, 5-20 - лет
     1 - год
     2 - 4 - года */
-    var a: Int = age
-    if (!(a in 1..199)) return "Введите корректный возраст"
+    var a = age
     if (a > 100) a %= 100
-    if (a % 10 == 0 || a in (5..20) || a % 10 in (5..9)) return "$age лет"
-    if (a % 10 == 1) return "$age год"
-    return "$age года"
+    return "$age " +
+            if (a !in 1..199) return "Введите корректный возраст"
+            else if (a % 10 == 0 || a in (5..20) || a % 10 in (5..9)) "лет"
+            else if (a % 10 == 1) "год"
+            else "года"
 
 }
 
@@ -168,12 +169,11 @@ fun rookOrBishopThreatens(
 ): Int {
     val dRook = kingX == rookX || kingY == rookY
     val dBishop = abs(kingX - bishopX) == abs(kingY - bishopY)
-    return if (dRook && dBishop) 3
-    else {
-        if (dRook) return 1
-        if (dBishop) return 2
-        else return 0
-    }
+    if (dRook && dBishop) return 3
+    return if (dRook) 1
+    else if (dBishop) 2
+    else 0
+
 }
 
 /**
@@ -189,9 +189,9 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val bkv = b.pow(2.0)
     val ckv = c.pow(2.0)
     return when {
-        ((a + b < c) || (b + c < a) || (a + c < b)) -> -1
-        ((akv == bkv + ckv) || (bkv == akv + ckv) || (ckv == akv + bkv)) -> 1
-        ((akv > bkv + ckv) || (bkv > akv + ckv) || (ckv > akv + bkv)) -> 2
+        (a + b < c || b + c < a || a + c < b) -> -1
+        (akv == bkv + ckv || bkv == akv + ckv || ckv == akv + bkv) -> 1
+        (akv > bkv + ckv || bkv > akv + ckv || ckv > akv + bkv) -> 2
         else -> 0
     }
 }
@@ -206,6 +206,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if ((a < c && b < c) || (c < a && d < a)) return -1
-    else return abs((max(a, c) - min(b, d)))
+    return if ((a < c && b < c) || (c < a && d < a)) -1
+    else abs((max(a, c) - min(b, d)))
 }

@@ -89,6 +89,11 @@ class Tests {
     }
 
     @Test
+    fun gcd() {
+        assertEquals(6, gcd(30, 18))
+        assertEquals(5, gcd(10, 75))
+    }
+    @Test
     @Tag("2")
     fun minDivisor() {
         assertEquals(2, minDivisor(2))

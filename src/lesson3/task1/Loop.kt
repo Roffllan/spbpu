@@ -105,9 +105,11 @@ fun digitNumber(n: Int): Int {
     var kol = 0
     var num = n
     while (num != 0) {
-        kol++; num /= 10
+        kol++
+        num /= 10
     }
-    return if (kol == 0) 1 else kol
+    return if (kol == 0) 1
+    else kol
 
 }
 
@@ -133,8 +135,8 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var count = 1
-    while (n % ++count != 0);
+    var count = 2
+    while (n % count != 0) ++count
     return count
 
 }
@@ -190,7 +192,7 @@ fun lcm(m: Int, n: Int): Int {
             x %= y
         } else y %= x
     }
-    val count: Int = x + y
+    val count = x + y
     return m * n / count
 }
 
@@ -201,12 +203,21 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    var count = 1
-    val proizv = if (m < n) m else n
-    while (proizv >= ++count) if (m % count == 0 && n % count == 0) return false
-    return true
+fun gcd(m: Int, n: Int): Int {
+    var firstDigit = n
+    var secondDigit = m
+    while (firstDigit != secondDigit) {
+        if (firstDigit > secondDigit) firstDigit -= secondDigit
+        else secondDigit -= firstDigit
+    }
+    return firstDigit
 }
+
+fun isCoPrime(m: Int, n: Int): Boolean = gcd(n, m) == 1
+
+
+
+
 
 /**
  * Средняя (3 балла)
@@ -342,5 +353,5 @@ fun fibSequenceDigit(n: Int): Int {
             return fib(i) / 10.0.pow(count - num).toInt() % 10
         } else num -= count
     }
-    return 0
-}
+    return 0}
+

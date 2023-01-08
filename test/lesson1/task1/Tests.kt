@@ -15,6 +15,14 @@ class Tests {
     }
 
     @Test
+    fun myFun() {
+        assertEquals(11, myFun("12+5/5*1-2"))
+        assertEquals(11, myFun("11-1+1/1*1"))
+        assertEquals(11, myFun("2*5+10/10"))
+        assertEquals(11, myFun("121/11"))
+    }
+
+    @Test
     @Tag("Example")
     fun sqrDouble() {
         assertEquals(0.0, sqr(0.0), 1e-13)

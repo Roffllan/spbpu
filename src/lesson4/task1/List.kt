@@ -146,9 +146,11 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    var summ = 0.0
-    for (el in list) summ += el
-    return if (summ != 0.0) summ / list.size else 0.0
+    val summ = list.sum()
+    var count = 0.0
+    if (list.isEmpty()) return 0.0
+    count = list.size.toDouble()
+    return summ / count
 
 }
 
@@ -161,7 +163,6 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    if (list.size == 0) return list
     val sp = mean(list)
     for (el in list.indices) list[el] -= sp
     return list
@@ -304,7 +305,7 @@ fun convertToString(n: Int, base: Int): String {
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    val reversedDigits: List<Int> = digits.reversed()
+    val reversedDigits = digits.reversed()
     var count = -1
     var res = 0
     while (++count < reversedDigits.size) res += reversedDigits[count] * pow(base.toDouble(), count.toDouble()).toInt()

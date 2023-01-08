@@ -2,6 +2,7 @@
 
 package lesson1.task1
 
+import lesson4.task1.convertToString
 import java.lang.IllegalArgumentException
 import java.util.Collections
 import kotlin.math.*
@@ -104,6 +105,35 @@ fun main() {
     //print(numberRevert(num))
 }
 
+fun myFun(input: String ): Int {
+    var str = input
+    val pattern = Regex("""\d+[*/]\d+""")
+    while (pattern in str) {
+        val s = pattern.find(str)!!.value
+        if ("/" in s) {
+            val a = s.split("/")
+            val b = (a[0].toInt() / a[1].toInt()).toString()
+            str = str.replaceFirst(s, b)
+        } else {
+            val a = s.split("*")
+            val b = (a[0].toInt() * a[1].toInt()).toString()
+            str = str.replaceFirst(s, b)
+        }
+    }
+    str = str.replace("+", " + ")
+    str = str.replace("-", " - ")
+    val sp = str.split(" ")
+    var answer = sp[0].toInt()
+    if (sp.size > 1) {
+        for (i in 1 until sp.size step 2) {
+            if (sp[i] == "+") answer += sp[i + 1].toInt()
+            if (sp[i] == "-") answer -= sp[i + 1].toInt()
+        }
+    }
+    return answer
+
+}
+
 /**
  * Тривиальная (3 балла).
  *
@@ -123,7 +153,7 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * 60 * 60 + min
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
-    (sagenes * 48 * 4.445 + arshins * 16 * 4.445 + vershoks * 4.445) / 100
+    (sagenes * 48 + arshins * 16 + vershoks) * 4.445 / 100
 
 /**
  * Тривиальная (1 балл)
@@ -157,7 +187,7 @@ fun thirdDigit(number: Int): Int = (number / 100 % 10).toInt()
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int =
-    ((hoursArrive * 60 + minutesArrive) - (hoursDepart * 60 + minutesDepart))
+    (hoursArrive * 60 + minutesArrive) - (hoursDepart * 60 + minutesDepart)
 
 /**
  * Простая (2 балла)
